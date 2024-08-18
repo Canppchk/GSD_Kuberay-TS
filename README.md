@@ -92,8 +92,20 @@ free -m
 ```
 sudo vi /etc/fstab
 ```
-If it have any `swap` you can comment by using `#`
+If it have any `swap` you can comment by using `#` like `#UUID=xxx-xxx-xxx-xxx none swap sw 0 0`
 
+Turn off all swap processes
+```
+sudo swapoff -a
+```
+Reboot the system
+```
+sudo reboot
+```
+After rebooting, you can confirm that swap is disabled by running
+```
+swapon --show
+```
 ## Enable bridging
 Run this command in both controller and worker nodes.
 
