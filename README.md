@@ -208,6 +208,7 @@ Check that everything is work.
 ```
 kubectl get pods --all-namespaces
 ```
+Everything should work except `dns pod` we have to add overlay network so `dns pod` can work.
 
 ## Adding an overlay network to cluster
 Ref : https://docs.tigera.io/calico/latest/getting-started/kubernetes/quickstart
