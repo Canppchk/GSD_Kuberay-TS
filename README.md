@@ -193,7 +193,6 @@ We will get the join-command like this :
 ```
 kubeadm join 10.10.10.213:6443 --token to45gs.80prk3u3zwh6033 \
 --discovery-token-ca-cert-hash sha256:5f20c66766ff844dc8466ae4a687846aeb6975321278528a095d0e4c88dee06 \
--- control-plane
 ```
 Coppy this command and keep in .txt file
 
@@ -225,7 +224,6 @@ Run join-command with `sudo`
 ```
 sudo kubeadm join 10.10.10.213:6443 --token to45gs.80prk3u3zwh6033 \
 --discovery-token-ca-cert-hash sha256:5f20c66766ff844dc8466ae4a687846aeb6975321278528a095d0e4c88dee06 \
--- control-plane
 ```
 
 If join-command already expire we can use `kubeadm token create --print-join-command` in controller node to print join-command again.
