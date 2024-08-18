@@ -211,19 +211,11 @@ kubectl get pods --all-namespaces
 Everything should work except `dns pod` we have to add overlay network so `dns pod` can work.
 
 ## Adding an overlay network to cluster
-Ref : https://docs.tigera.io/calico/latest/getting-started/kubernetes/quickstart
+Ref : https://github.com/flannel-io/flannel#deploying-flannel-manually
 
-1.Install the Tigera Calico operator and custom resource definitions.
+Deploying Flannel with kubectl.
 ```
-kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.28.1/manifests/tigera-operator.yaml
-```
-2.Install Calico by creating the necessary custom resource.
-```
-kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.28.1/manifests/custom-resources.yaml
-```
-3.Confirm that all of the pods are running with the following command.
-```
-watch kubectl get pods -n calico-system
+kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
 ```
 
 ## Join worker nodes to cluster
