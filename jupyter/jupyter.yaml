@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: minimal-notebook
-        image: jupyter/minimal-notebook:python-3.9.12
+        image: jupyter/minimal-notebook:python-3.9.13
         ports:
         - containerPort: 8888
         command: ["start-notebook.sh"]
@@ -35,3 +35,4 @@ spec:
     nodePort: 30040
     port: 8888
     targetPort: 8888
+
