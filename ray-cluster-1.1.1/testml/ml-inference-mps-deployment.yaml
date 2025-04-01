@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-inference-mps-deployment
+spec:
+  replicas: 1  # Number of pods
+  selector:
+    matchLabels:
+      app: ml-inference-mps
+  template:
+    metadata:
+      labels:
+        app: ml-inference-mps
+    spec:
+      hostIPC: true
+      securityContext:
+        runAsUser: 0
+      restartPolicy: Always
+      containers:
+        - name: ml-inference-mps-container
+          image: ppchk12345/ml-inference-mps:latest  # Replace with your image
+          securityContext:
+            capabilities:
+              add: ["IPC_LOCK"]  # Required for MPS
+          resources:
+            limits:
+              nvidia.com/gpu: "1"  # Request 1 GPU
+            requests:
+              nvidia.com/gpu: "1"
+          env:
+            - name: NVIDIA_VISIBLE_DEVICES
+              value: "0"
+            - name: NVIDIA_MPS_PIPE_DIRECTORY
+              value: "/tmp/nvidia-mps"
+            - name: NVIDIA_MPS_LOG_DIRECTORY
+              value: "/tmp/nvidia-log"
+          volumeMounts:
+            - name: mps-pipe
+              mountPath: /tmp/nvidia-mps
+            - name: mps-log
+              mountPath: /tmp/nvidia-log
+      volumes:
+        - name: mps-pipe
+          emptyDir: {}
+        - name: mps-log
+          emptyDir: {}
+

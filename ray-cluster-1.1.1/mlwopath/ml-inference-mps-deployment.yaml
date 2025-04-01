@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-inference-mps-deployment
+spec:
+  replicas: 1  # Number of pods
+  selector:
+    matchLabels:
+      app: ml-inference-mps
+  template:
+    metadata:
+      labels:
+        app: ml-inference-mps
+    spec:
+      hostIPC: true
+      securityContext:
+        runAsUser: 0
+      restartPolicy: Always
+      containers:
+        - name: ml-inference-mps-container
+          image: ppchk12345/custom-ray-cuda-mps:1.7  # Replace with your image
+          resources:
+            limits:
+              nvidia.com/gpu: 1  # Request 1 GPU
+          env:
+            - name: NVIDIA_VISIBLE_DEVICES
+              value: "0"
+      volumes:
+        - name: mps-pipe
+          emptyDir: {}
+        - name: mps-log
+          emptyDir: {}
+
