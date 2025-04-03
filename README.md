@@ -1,24 +1,17 @@
 # Kuberay Workloads
 
-## Install nvidia-device plugin
+## Install Kuberay
 
-Install gpu-operator without device plugin
+Install Kuberay-operator
 ```
-helm install -n gpu-operator   --generate-name   --create-namespace   --set devicePlugin.enabled=false   --set gfd.enabled=false    nvidia/gpu-operator
+helm install kuberay-operator kuberay/kuberay-operator --version 1.1.1
 ```
 
-Install device plugin with mps
+Install ray cluster
 ```
-helm upgrade -i nvdp nvdp/nvidia-device-plugin     --version=0.16.0     --namespace nvidia-device-plugin     --create-namespace     --set gfd.enabled=true     --set config.default=mps2     --set-file config.map.mps2=dp-mps-2.yaml
-```
-```
-helm upgrade -i nvdp nvdp/nvidia-device-plugin \     
-		--version=0.16.0 \ 
-		--namespace nvidia-device-plugin \    
-		--create-namespace \    
-		--set gfd.enabled=true \   
-		--set config.default=mps10 \    
-		--set-file config.map.mps10=dp-mps-10.yaml
+helm install raycluster1 kuberay/ray-cluster --version 1.1.1 -f values-cluster.yaml
+helm install raycluster2 kuberay/ray-cluster --version 1.1.1 -f values-cluster.yaml
+helm install raycluster3 kuberay/ray-cluster --version 1.1.1 -f values-cluster.yaml
 ```
 
 
